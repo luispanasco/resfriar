@@ -50,21 +50,23 @@ La normalización de nulls y jsonb está en `lib/data.ts`. Las páginas usan ISR
 | Fotos y PDF | Carpeta local `C:\Users\Luisito\Documents\Resfriar-Uruguay\{código}\` (fotos de resfriar.com.br, revisadas a mano). Las de S3 no se usan. |
 | Link de compra | Se deriva del código (ver abajo) |
 
-### Cómo se cargan / actualizan
+### Cómo se editan
 
-Desde `newHub/hub-nami`:
+**Desde el hub:** Admin → Web → **Web Resfriar** (`/resfriar-web`). La base es la fuente de verdad y los cambios aparecen en el sitio en menos de un minuto (ISR de 60 s), sin volver a publicar.
+
+- Lista por categoría: publicar/ocultar, destacar (hero), reordenar, "Ver en la web", buscar por título o código, crear ficha nueva (nace oculta).
+- Ficha: textos, cifras, ficha técnica, compatibilidad, fotos (la primera es la portada), PDFs y códigos (validados contra `na_cl`; no se repiten entre fichas).
+
+**Carga inicial / restaurar** (desde `newHub/hub-nami`):
 
 ```bash
-npx tsx scripts/resfriar/load-resfriar-web.mts               # todo (datos + fotos + PDF)
-npx tsx scripts/resfriar/load-resfriar-web.mts --no-files    # solo datos, sin re-subir archivos
-npx tsx scripts/resfriar/load-resfriar-web.mts --only=slug1,slug2
-npx tsx scripts/resfriar/load-resfriar-web.mts --dry-run
+npx tsx scripts/resfriar/load-resfriar-web.mts --dry-run                 # qué crearía, pisaría o saltearía
+npx tsx scripts/resfriar/load-resfriar-web.mts                           # solo crea lo que falta
+npx tsx scripts/resfriar/load-resfriar-web.mts --overwrite --only=slug   # restaura esa ficha desde families.json (pisa lo editado en el hub)
 ```
 
-- El contenido editorial está en `hub-nami/scripts/resfriar/families.json` (títulos, serie, compatibilidad, destacados, variantes). Los `_review` marcan lo que hay que revisar.
-- Fotos: entra toda imagen de la carpeta de cada código salvo `nami-s3.*`, en orden de nombre de archivo y sin repetidos. Para cambiar fotos se toca la carpeta y se vuelve a correr.
-- Esquema SQL: `hub-nami/prisma/web/alter_resfriar.sql` (con su RLS). Detalle en la bitácora del hub, entrada 2026-11-16.
-- Pendiente (1.1): editor en el hub para fichas, variantes, orden, destacados y fotos.
+- `families.json` + la carpeta local de fotos fueron la carga inicial; hoy solo sirven para crear fichas faltantes o restaurar con `--overwrite`.
+- Esquema SQL: `hub-nami/prisma/web/alter_resfriar.sql` (con su RLS). Detalle en la bitácora y el CLAUDE.md del hub.
 
 ## Marca
 
@@ -110,6 +112,4 @@ https://www.clima.nami.com.uy/productos/{encodeURIComponent(product_code)}
 
 ## Pendiente
 
-- Dominio (`NEXT_PUBLIC_SITE_URL`).
-- Repo en GitHub y deploy en Vercel (hoy solo local, sin commits).
-- Editor en el hub (v1.1).
+- Dominio propio: conectarlo en Vercel (Settings → Domains) y actualizar `NEXT_PUBLIC_SITE_URL`. Hoy: https://resfriar-five.vercel.app (repo github.com/luispanasco/resfriar, se publica solo al subir a main).
