@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Paleta Resfriar (resfriar.com.br) */
+:root {
+  --rf-blue: #0094e6;
+  --rf-deep: #1e73be;
+  --rf-slate: #3c505a;
+  --rf-night: #000d1f;
+  --rf-mint: #5effc5;
+  --rf-mist: #f2f2f2;
+}
+
+@theme inline {
+  --color-blue: var(--rf-blue);
+  --color-deep: var(--rf-deep);
+  --color-slate: var(--rf-slate);
+  --color-night: var(--rf-night);
+  --color-mint: var(--rf-mint);
+  --color-mist: var(--rf-mist);
+  --font-display: var(--font-saira), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: #fff;
+  color: var(--rf-slate);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Foco visible y consistente en todo el sitio */
+:focus-visible {
+  outline: 3px solid var(--rf-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.on-dark :focus-visible {
+  outline-color: var(--rf-mint);
+}
+
+@layer components {
+  .heading {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+  }
+  .container-rf {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 640px) {
+    .container-rf {
+      padding-inline: 1.5rem;
+    }
+  }
+  .btn-buy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-radius: 0.5rem;
+    background: var(--rf-deep);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.55rem 1rem;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .btn-buy:hover {
+    background: var(--rf-blue);
+  }
+  .chip {
+    display: inline-block;
+    border-radius: 999px;
+    background: var(--rf-mist);
+    color: var(--rf-slate);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+  }
+}
+
+/* Entrada de cada diapositiva del hero. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-slide {
+    animation: hero-in 0.5s ease-out;
+  }
+}
