@@ -130,7 +130,9 @@ export default async function ProductPage({ params }: Props) {
                 </div>
               )}
 
-              <BuyBox title={family.title} variants={variants} message={waMessage} />
+              <div className="order-first lg:order-none">
+                <BuyBox title={family.title} variants={variants} message={waMessage} />
+              </div>
             </div>
           </div>
         </div>
@@ -171,11 +173,11 @@ export default async function ProductPage({ params }: Props) {
               <h2 id="specs-h" className="heading text-2xl text-night">
                 Ficha técnica
               </h2>
-              <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+              <dl className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
                 {cards.map((s, i) => (
-                  <div key={`${s.label}-${i}`} className="min-w-0 rounded-xl bg-mist p-4">
-                    <dt className="text-xs font-semibold uppercase tracking-wide text-slate/70">{s.label}</dt>
-                    <dd className="mt-1 whitespace-pre-line break-words font-semibold text-night">{s.value}</dd>
+                  <div key={`${s.label}-${i}`} className="min-w-0 rounded-xl bg-mist p-3 sm:p-4">
+                    <dt className="text-[0.68rem] font-semibold uppercase tracking-wide text-slate/70 sm:text-xs">{s.label}</dt>
+                    <dd className="mt-1 whitespace-pre-line break-words text-sm font-semibold text-night sm:text-base">{s.value}</dd>
                   </div>
                 ))}
               </dl>

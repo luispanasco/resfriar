@@ -68,28 +68,28 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
         role="group"
         aria-roledescription="diapositiva"
         aria-label={`${index + 1} de ${count}: ${s.title}`}
-        className="hero-slide grid items-center gap-8 md:grid-cols-2"
+        className="hero-slide grid items-center gap-4 md:grid-cols-2 md:gap-8"
       >
         <div className="min-w-0">
           <p className="heading text-sm text-mint">{s.categoryTitle}</p>
-          <h2 className="heading mt-3 text-3xl text-balance sm:text-4xl lg:text-5xl">{s.title}</h2>
+          <h2 className="heading mt-2 text-2xl text-balance sm:mt-3 sm:text-4xl lg:text-5xl">{s.title}</h2>
           {s.series && <p className="mt-2 text-sm text-white/60">{s.series}</p>}
-          {s.shortDescription && <p className="mt-4 max-w-prose text-white/80">{s.shortDescription}</p>}
+          {s.shortDescription && <p className="mt-3 line-clamp-2 max-w-prose text-sm text-white/80 sm:mt-4 sm:line-clamp-none sm:text-base">{s.shortDescription}</p>}
           {s.highlights.length > 0 && (
-            <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
-              {s.highlights.map((h) => (
-                <div key={h.label} className="min-w-0 border-l-2 border-blue pl-3">
+            <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:mt-6 sm:grid-cols-3">
+              {s.highlights.map((h, i) => (
+                <div key={h.label} className={`min-w-0 border-l-2 border-blue pl-3 ${i > 1 ? "hidden sm:block" : ""}`}>
                   <dt className="text-xs uppercase tracking-wide text-white/60">{h.label}</dt>
-                  <dd className="heading mt-0.5 text-base break-words">{h.value}</dd>
+                  <dd className="heading mt-0.5 whitespace-pre-line break-words text-sm sm:text-base">{h.value}</dd>
                 </div>
               ))}
             </dl>
           )}
-          <Link href={`/producto/${s.slug}`} className="btn-buy mt-8 bg-blue hover:bg-deep">
+          <Link href={`/producto/${s.slug}`} className="btn-buy mt-5 bg-blue hover:bg-deep sm:mt-8">
             Ver más
           </Link>
         </div>
-        <div className="relative mx-auto aspect-[4/3] w-full max-w-lg">
+        <div className="relative order-first mx-auto aspect-[16/10] w-full max-w-sm md:order-none md:aspect-[4/3] md:max-w-lg">
           {s.image && (
             <Image
               src={s.image}
@@ -104,7 +104,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
       </div>
 
       {count > 1 && (
-        <div className="mt-8 flex items-center gap-3">
+        <div className="mt-6 flex items-center gap-3 sm:mt-8">
           <button
             type="button"
             onClick={() => go(index - 1)}

@@ -51,9 +51,9 @@ export function FamilyCard({ f, priority = false, index = 0 }: { f: FamilyCardDa
       href={`/producto/${f.slug}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-black/10 bg-white transition hover:border-blue hover:shadow-lg"
+      className="group flex h-full flex-row overflow-hidden rounded-xl border border-black/10 bg-white transition hover:border-blue hover:shadow-lg sm:flex-col"
     >
-      <div className="relative aspect-[4/3] bg-mist">
+      <div className="relative aspect-square w-32 shrink-0 self-start bg-mist sm:aspect-[4/3] sm:w-auto sm:self-auto">
         {count ? (
           f.images.map((src, i) => (
             <Image
@@ -63,8 +63,8 @@ export function FamilyCard({ f, priority = false, index = 0 }: { f: FamilyCardDa
               fill
               priority={priority && i === 0}
               loading={priority && i === 0 ? undefined : "lazy"}
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              className={`object-contain p-4 transition-opacity duration-700 ${i === current ? "opacity-100" : "opacity-0"}`}
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 128px"
+              className={`object-contain p-2 transition-opacity sm:p-4 duration-700 ${i === current ? "opacity-100" : "opacity-0"}`}
             />
           ))
         ) : (
@@ -78,12 +78,12 @@ export function FamilyCard({ f, priority = false, index = 0 }: { f: FamilyCardDa
           </span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
+      <div className="flex min-w-0 flex-1 flex-col gap-1.5 p-3 sm:gap-2 sm:p-4">
         {f.series && <p className="text-xs font-semibold uppercase tracking-wide text-deep">{f.series}</p>}
-        <h3 className="heading text-lg text-night">{f.title}</h3>
-        {f.summary && <p className="line-clamp-2 text-sm text-slate/90">{f.summary}</p>}
+        <h3 className="heading text-base text-night sm:text-lg">{f.title}</h3>
+        {f.summary && <p className="hidden text-sm text-slate/90 sm:line-clamp-2">{f.summary}</p>}
         {f.highlights.length > 0 && (
-          <dl className="grid grid-cols-2 gap-2 pt-1">
+          <dl className="hidden grid-cols-2 gap-2 pt-1 sm:grid">
             {f.highlights.map((h) => (
               <div key={h.label} className="min-w-0 rounded-md bg-mist px-2 py-1.5">
                 <dt className="truncate text-[0.65rem] uppercase tracking-wide text-slate/70">{h.label}</dt>
@@ -99,7 +99,7 @@ export function FamilyCard({ f, priority = false, index = 0 }: { f: FamilyCardDa
           </p>
         )}
         {f.compatibility.length > 0 && (
-          <ul className="mt-auto flex flex-wrap gap-1.5 pt-2" aria-label="Compatibilidad">
+          <ul className="mt-auto flex flex-wrap gap-1.5 pt-1 sm:pt-2" aria-label="Compatibilidad">
             {f.compatibility.map((c) => (
               <li key={c} className="chip">
                 {c}

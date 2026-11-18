@@ -63,10 +63,10 @@ export default async function Home() {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_20%,rgba(0,148,230,0.45),transparent_60%),radial-gradient(ellipse_at_10%_100%,rgba(94,255,197,0.15),transparent_50%)]"
         />
-        <div className="container-rf relative pb-12 pt-5 md:pb-16 md:pt-6">
-          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-white/10 pb-4">
-            <h1 className="heading text-sm text-white/80">Climatizadores, aire acondicionado y heladeras para camiones</h1>
-            <p className="heading text-sm text-mint">Distribuidor oficial y exclusivo en Uruguay: Nami</p>
+        <div className="container-rf relative pb-8 pt-4 md:pb-16 md:pt-6">
+          <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-b border-white/10 pb-3 sm:mb-8 sm:pb-4">
+            <h1 className="heading sr-only text-sm text-white/80 sm:not-sr-only">Climatizadores, aire acondicionado y heladeras para camiones</h1>
+            <p className="heading text-xs text-mint sm:text-sm">Distribuidor oficial y exclusivo en Uruguay: Nami</p>
           </div>
           {slides.length > 0 ? (
             <HeroCarousel slides={slides} />
@@ -100,7 +100,7 @@ export default async function Home() {
 
       {/* Destacados */}
       {showcase.length > 0 && (
-        <section className="container-rf pb-14" aria-labelledby="dest-h">
+        <section className="container-rf pb-14 pt-10 sm:pt-14" aria-labelledby="dest-h">
           <h2 id="dest-h" className="heading text-2xl text-night sm:text-3xl">
             Destacados
           </h2>

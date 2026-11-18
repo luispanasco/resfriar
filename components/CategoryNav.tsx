@@ -26,7 +26,7 @@ export function CategoryNav({ categories, extra }: { categories: Item[]; extra: 
 
   return (
     <nav aria-label="Categorías" className="border-t border-white/10 bg-[#04182f]">
-      <ul className="container-rf flex h-12 items-stretch gap-6 overflow-x-auto sm:gap-8">
+      <ul className="container-rf flex h-12 items-stretch gap-6 overflow-x-auto [mask-image:linear-gradient(to_right,black_85%,transparent)] [scrollbar-width:none] sm:gap-8 sm:[mask-image:none]">
         {categories.map((c) => (
           <li key={c.href} className="shrink-0">
             {link(c)}
