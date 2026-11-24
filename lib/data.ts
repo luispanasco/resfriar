@@ -111,8 +111,17 @@ function mapVariant(r: any): Variant {
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */
 
+/**
+ * Si Supabase falla (caído, sin cuota…) se LANZA en vez de devolver vacío: con
+ * ISR una página regenerada sin productos queda cacheada y el sitio se ve vacío.
+ * Lanzando, Next sigue sirviendo la última versión buena (y un build con
+ * Supabase caído falla, así Vercel mantiene el deploy anterior).
+ */
 function logError(where: string, error: { message: string } | null) {
-  if (error) console.error(`[supabase] ${where}: ${error.message}`);
+  if (error) {
+    console.error(`[supabase] ${where}: ${error.message}`);
+    throw new Error(`Supabase falló al leer ${where}: ${error.message}`);
+  }
 }
 
 // --- loaders (memoizados por request con cache()) ----------------------------
